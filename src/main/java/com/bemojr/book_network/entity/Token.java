@@ -25,5 +25,5 @@ public class Token {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private List<User> users;
+    private User users;
 }

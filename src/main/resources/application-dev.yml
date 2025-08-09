@@ -1,7 +1,7 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/book_social_network
-    username: postgres
+    url: jdbc:postgresql://localhost:5433/book_social_network
+    username: user
     password: password
     driver-class-name: org.postgresql.Driver
 
@@ -10,23 +10,24 @@ spring:
       ddl-auto: update
     show-sql: true
     properties:
-      format-sql: true
-    database: postgres
+      hibernate:
+        format-sql: true
+    database: POSTGRESQL
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 
   mail:
     host: localhost #where the smtp server is running
     port: 1025
-    username: no-reply@gmail.com
+    username: ben@gmail.com
     password: ben
     properties:
       mail:
         smtp:
           starttls:
-            enable: true
-            required: true
+            enable: false
+            required: false
           trust: "*"
-          auth: true
+          auth: false
           connectiontimeout: 5000
           timeout: 5000
           writetimeout: 5000
@@ -36,5 +37,8 @@ spring:
 application:
   security:
     jwt:
-      secret-key: 846914419DDF25C16E8F341FA5A8C
+      secret-key: 846914419DDF25C16E8F341FA5A8C25C16E8F341FA14419DDF25C16E8
       expiration: 86_400_000
+    mailing:
+      frontend:
+        activation-url: http://localhost:4200/activate-account/

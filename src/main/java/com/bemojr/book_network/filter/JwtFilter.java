@@ -1,4 +1,4 @@
-package com.bemojr.book_network.configuration;
+package com.bemojr.book_network.filter;
 
 import com.bemojr.book_network.repository.UserRepository;
 import com.bemojr.book_network.service.JwtService;
@@ -8,6 +8,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
@@ -20,9 +21,10 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class JwtFilter extends OncePerRequestFilter {
-    private static final String AUTH_ROUTE_PATTERN = "^/api/v\\d/auth/[a-zA-z0-9-/]*";
+    private static final String AUTH_ROUTE_PATTERN = "^/auth/[a-zA-z0-9-/]*";
     private final JwtService jwtService;
     private final UserRepository userRepository;
 
@@ -32,8 +34,10 @@ public class JwtFilter extends OncePerRequestFilter {
             HttpServletResponse response,
             FilterChain filterChain
     ) throws ServletException, IOException {
+        log.info("Servlet path -> {}", request.getServletPath());
         if (request.getServletPath().matches(AUTH_ROUTE_PATTERN)) {
             filterChain.doFilter(request, response);
+            return;
         }
 
         final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);

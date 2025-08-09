@@ -1,5 +1,6 @@
 package com.bemojr.book_network.configuration;
 
+import com.bemojr.book_network.filter.JwtFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -98,7 +98,7 @@ public class User implements UserDetails, Principal {
         return this.enabled;
     }
 
-    private String fullName() {
+    public String fullName() {
         return this.firstName + " " + this.lastName;
     }
 }
